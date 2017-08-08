@@ -69,7 +69,7 @@ endif
 " }}}
 " "===================================================="
 " gui cursor (for cygwin only) {{{
-if has("win32")
+if has("win32unix")
     let &t_ti.="\e[1 q"
     let &t_SI.="\e[5 q"
     let &t_EI.="\e[1 q"
@@ -117,7 +117,7 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 "Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
 
 " Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
@@ -165,7 +165,6 @@ set laststatus=2
 " }}}
 " "===================================================="
 " color {{{
-set background=dark
 "let g:gruvbox_contrast_dark='soft'
 " Enable italic 
 let g:gruvbox_italic=1
@@ -191,14 +190,16 @@ else
 	endif
     endif
 endif
+set background=dark
 colorscheme solarized 
 " }}}
 " "===================================================="
 " general key mapping  and shor command{{{
-map <F6> :tabp<CR>
-map <F7> :tabn<CR>
+nnoremap <F6> :tabp<CR>
+nnoremap <F7> :tabn<CR>
 "command
-command NT NERDTree
+"command NT NERDTree
+nnoremap <c-n> :NERDTreeToggle<CR>
 " }}}
 " "===================================================="
 "syntastic {{{
@@ -206,18 +207,35 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 "let g:syntastic_tex_checkers=[]
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
 "set cygwin path
-if has("win32")
-    let g:cygwin_path = 'D:\cygwin64'
+"if has("win32")
+if has("win32unix")
+    "let g:cygwin_path = 'D:\cygwin64'
+    let g:sytastic_python_python = '/bin/python'
 endif
+" }}}
+" "===================================================="
+"ctrlp {{{
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
 " }}}
 " "===================================================="
 "neocomplache {{{
@@ -354,8 +372,9 @@ if has("win32")
     endfunction
 endif
 
-autocmd Filetype tex set spell |  map j gj | map k gk
+autocmd Filetype tex set spell |  nnoremap j gj| nnoremap k gk| set colorcolumn=79
 autocmd Filetype tex source ~/.vim/rc/myauctex.vim
+autocmd Filetype py set colorcolumn=79
 "latex box 
 
 let g:LatexBox_viewer = "SumatraPDF -reuse-instance"
