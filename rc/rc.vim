@@ -223,21 +223,6 @@ if has("win32unix")
 endif
 " }}}
 " "===================================================="
-"ctrlp {{{
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-" }}}
-" "===================================================="
 "neocomplache {{{
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -413,6 +398,8 @@ vmap <CR> <Plug>(EasyAlign)
 " python setting {{{
 set expandtab
 autocmd Filetype python set expandtab 
+" quickly execute current python file
+autocmd FileType python nnoremap <F4> :execute "!ipython %" <enter>
 " }}}
 " "===================================================="
 " ctrlp {{{
