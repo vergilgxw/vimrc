@@ -415,4 +415,7 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 " }}}
+" "===================================================="
+"autocmd FileType csv 
+nmap <leader>aa :set wrap! \| :%!column -t -s,<CR>
 "  vim: fdm=marker
