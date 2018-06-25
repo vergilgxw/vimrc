@@ -5,7 +5,7 @@
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
-set mouse=
+"set mouse=a
 
 " comment this, because this would not work in new version for vimdiff
 "set diffexpr=MyDiff()
@@ -200,6 +200,11 @@ nnoremap <F7> :tabn<CR>
 "command
 "command NT NERDTree
 nnoremap <c-n> :NERDTreeToggle<CR>
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDDefaultAlign = 'left'
+
 " }}}
 " "===================================================="
 "syntastic {{{
@@ -207,9 +212,9 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_tex_checkers=[]
 let g:syntastic_cpp_compiler = 'clang++'
@@ -399,7 +404,7 @@ vmap <CR> <Plug>(EasyAlign)
 set expandtab
 autocmd Filetype python set expandtab 
 " quickly execute current python file
-autocmd FileType python nnoremap <F4> :execute "!ipython %" <enter>
+autocmd FileType python nnoremap <F4> :execute "w" <enter> :execute "!ipython %" <enter>
 " }}}
 " "===================================================="
 " ctrlp {{{
