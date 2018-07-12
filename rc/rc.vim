@@ -422,5 +422,6 @@ let g:ctrlp_custom_ignore = {
 " }}}
 " "===================================================="
 "autocmd FileType csv 
-nmap <leader>aa :set wrap! \| :%!column -t -s,<CR>
+nmap <leader>acsv :set wrap! \| :%!column -t -s,<CR>
+nmap <leader>atsv :set wrap! \| :%!column -t<CR>
 "  vim: fdm=marker
