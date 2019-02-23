@@ -5,34 +5,6 @@
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
-"set mouse=a
-
-" comment this, because this would not work in new version for vimdiff
-"set diffexpr=MyDiff()
-"function MyDiff()
-  "let opt = '-a --binary '
-  "if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  "if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  "let arg1 = v:fname_in
-  "if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  "let arg2 = v:fname_new
-  "if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  "let arg3 = v:fname_out
-  "if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  "let eq = ''
-  "if $VIMRUNTIME =~ ' '
-    "if &sh =~ '\<cmd'
-      "let cmd = '""' . $VIMRUNTIME . '\diff"'
-      "let eq = '"'
-    "else
-      "let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    "endif
-  "else
-    "let cmd = $VIMRUNTIME . '\diff'
-  "endif
-  "silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-"endfunction
-
 " }}}
 " "===================================================="
 " space & tab {{{
@@ -100,7 +72,11 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('/usr/share/vim/vim74/plugged')
 
 " Make sure you use single quotes
+
+" color scheme for vim
 Plug 'junegunn/seoul256.vim'
+
+" easy align
 Plug 'junegunn/vim-easy-align'
 
 " Group dependencies, vim-snippets depends on ultisnips
@@ -397,7 +373,7 @@ syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1
 hi cFunction gui=NONE guifg=#B5A1FF
 " }}}
 " "===================================================="
-" easy-aline {{{
+" easy-align {{{
 vmap <CR> <Plug>(EasyAlign)
 " }}}
 " "===================================================="
@@ -412,7 +388,6 @@ autocmd Filetype python set expandtab
 " quickly execute current python file
 autocmd FileType python nnoremap <F4> :execute "w" <enter> :execute "!ipython %" <enter>
 " }}}
-"
 " "===================================================="
 " ctrlp {{{
 let g:ctrlp_map = '<c-p>'
