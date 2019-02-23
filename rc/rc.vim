@@ -136,6 +136,7 @@ Plug 'Latex-Box-Team/Latex-Box'
 Plug 'tpope/vim-surround'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'altercation/vim-colors-solarized'
+Plug 'vim-python/python-syntax'
 call plug#end()
 " }}}
 " "===================================================="
@@ -205,6 +206,10 @@ let g:NERDCompactSexyComs = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDDefaultAlign = 'left'
 
+" }}}
+" "===================================================="
+"syntax {{{
+let g:python_highlight_all = 1
 " }}}
 " "===================================================="
 "syntastic {{{
@@ -407,6 +412,7 @@ autocmd Filetype python set expandtab
 " quickly execute current python file
 autocmd FileType python nnoremap <F4> :execute "w" <enter> :execute "!ipython %" <enter>
 " }}}
+"
 " "===================================================="
 " ctrlp {{{
 let g:ctrlp_map = '<c-p>'
@@ -424,4 +430,5 @@ let g:ctrlp_custom_ignore = {
 "autocmd FileType csv 
 nmap <leader>acsv :set wrap! \| :%!column -t -s,<CR>
 nmap <leader>atsv :set wrap! \| :%!column -t<CR>
-"  vim: fdm=marker
+"vim: 
+set fdm=marker
