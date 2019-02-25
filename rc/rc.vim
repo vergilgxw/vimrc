@@ -79,6 +79,9 @@ Plug 'junegunn/seoul256.vim'
 " easy align
 Plug 'junegunn/vim-easy-align'
 
+" ALE for async linting
+Plug 'w0rp/ale'
+
 " Group dependencies, vim-snippets depends on ultisnips
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
@@ -103,7 +106,7 @@ Plug 'bling/vim-airline'
 Plug 'scrooloose/nerdcommenter'
 "Plug
 Plug 'morhetz/gruvbox'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 "Plug 'Valloric/YoucompleteMe'
 Plug 'Shougo/neocomplcache.vim'
 Plug 'Shougo/neosnippet'
@@ -114,6 +117,24 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-python/python-syntax'
 call plug#end()
+" }}}
+" "===================================================="
+" ALE Linter and Fixer {{{
+let g:ale_lint_on_enter=1
+let g:ale_lint_on_save=1
+let g:ale_lint_on_text_changed='never' 
+
+let g:ale_lint_on_insert_leave=1 " lint if leave insert mode(to normal mode)
+" Make using Ctrl+C do the same as Escape, to trigger autocmd commands
+inoremap <C-c> <Esc>
+" "===================================================="
+" begining \ is the way vimrc continuation!!!
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\}
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
 " }}}
 " "===================================================="
 " Editor {{{
@@ -186,28 +207,6 @@ let g:NERDDefaultAlign = 'left'
 " "===================================================="
 "syntax {{{
 let g:python_highlight_all = 1
-" }}}
-" "===================================================="
-"syntastic {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-"let g:syntastic_tex_checkers=[]
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-
-let g:statline_syntastic = 0
-"set cygwin path
-"if has("win32")
-if has("win32unix")
-    "let g:cygwin_path = 'D:\cygwin64'
-    let g:sytastic_python_python = '/bin/python'
-endif
 " }}}
 " "===================================================="
 "neocomplache {{{
