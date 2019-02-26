@@ -1,6 +1,5 @@
 " vimrc by Guo Xiawei
 "
-
 "basic setting {{{
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
@@ -48,7 +47,7 @@ set softtabstop=4
 " }}}
 " "===================================================="
 " language {{{
-
+" utf-8 chinese
 if has("multi_byte") 
     " UTF-8 ±àÂë 
     set encoding=utf-8 
@@ -107,7 +106,8 @@ Plug 'junegunn/vim-easy-align'
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 "Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Using git URL
@@ -125,7 +125,6 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'kien/ctrlp.vim'
 Plug 'bling/vim-airline'
 Plug 'scrooloose/nerdcommenter'
-"Plug
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/syntastic'
 "Plug 'Valloric/YoucompleteMe'
@@ -136,7 +135,13 @@ Plug 'Latex-Box-Team/Latex-Box'
 Plug 'tpope/vim-surround'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'altercation/vim-colors-solarized'
+Plug 'chrisbra/csv.vim'
+Plug 'vim-python/python-syntax'
 call plug#end()
+" }}}
+" "===================================================="
+" python-syntax {{{
+let g:python_highlight_all=1
 " }}}
 " "===================================================="
 " Editor {{{
@@ -167,29 +172,28 @@ set laststatus=2
 " color {{{
 "let g:gruvbox_contrast_dark='soft'
 " Enable italic 
-let g:gruvbox_italic=1
-
-if has("win32")
-    let g:rehash256=1
-else
-    if has("unix")
-	" following is for gnome terminal
-	if $COLORTERM == 'gnome-terminal'
-	    " set 256 color mode (or the colors crash)
-	    set t_Co=256
-	    let g:rehash256=1
-	    " add them to italic line to get gnome-terminal italic support
-	    " if not, the italic lines will be very strange background color
-	    " the character  should be added by typing ctrl+v+esc (disable win mode
-	    " to avoid ctrl+v paste) 
-	    set t_ZH=[3m
-	    "set t_ZH="\e[[3m"
-	    "set t_ZR="\e[[23m"
-	    set t_ZR=[23m
-	    "highlight Comment cterm=italic
-	endif
-    endif
-endif
+"let g:gruvbox_italic=1
+"if has("win32")
+    "let g:rehash256=1
+"else
+    "if has("unix")
+	"" following is for gnome terminal
+	"if $COLORTERM == 'gnome-terminal'
+	    "" set 256 color mode (or the colors crash)
+	    "set t_Co=256
+	    "let g:rehash256=1
+	    "" add them to italic line to get gnome-terminal italic support
+	    "" if not, the italic lines will be very strange background color
+	    "" the character  should be added by typing ctrl+v+esc (disable win mode
+	    "" to avoid ctrl+v paste) 
+	    "set t_ZH=[3m
+	    ""set t_ZH="\e[[3m"
+	    ""set t_ZR="\e[[23m"
+	    "set t_ZR=[23m
+	    ""highlight Comment cterm=italic
+	"endif
+    "endif
+"endif
 set background=dark
 colorscheme solarized 
 " }}}
@@ -219,7 +223,8 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 "if has("win32")
 if has("win32unix")
     "let g:cygwin_path = 'D:\cygwin64'
-    let g:sytastic_python_python = '/bin/python'
+    "let g:sytastic_python_python = '/bin/python'
+    let g:sytastic_python_python = '/Users/vergil/anaconda2/envs/python3/bin/python3.7'
 endif
 " }}}
 " "===================================================="
@@ -359,7 +364,7 @@ endif
 
 autocmd Filetype tex set spell |  nnoremap j gj| nnoremap k gk| set colorcolumn=79
 autocmd Filetype tex source ~/.vim/rc/myauctex.vim
-autocmd Filetype py set colorcolumn=79
+autocmd Filetype python setlocal colorcolumn=79
 "latex box 
 
 let g:LatexBox_viewer = "SumatraPDF -reuse-instance"
@@ -416,6 +421,21 @@ let g:ctrlp_custom_ignore = {
   \ }
 " }}}
 " "===================================================="
-"autocmd FileType csv 
+" autocmd FileType csv {{{
 nmap <leader>aa :set wrap! \| :%!column -t -s,<CR>
+nmap <leader>at :set wrap! \| :%!column -t<CR>
+if exists("did_load_csvfiletype")
+    finish
+endif
+let did_load_csvfiletype=1
+
+augroup filetypedetect
+    au! BufRead,BufNewFile *.csv,*.dat  setfiletype csv
+augroup END
+"}}}
+" "===================================================="
+" nerdtree {{{
+"let g:NERDTreeDirArrowExpandable = '>'
+"let g:NERDTreeDirArrowCollapsible = '-'
+"}}}
 "  vim: fdm=marker
