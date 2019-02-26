@@ -5,34 +5,6 @@
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
-"set mouse=a
-
-" comment this, because this would not work in new version for vimdiff
-"set diffexpr=MyDiff()
-"function MyDiff()
-  "let opt = '-a --binary '
-  "if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  "if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  "let arg1 = v:fname_in
-  "if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  "let arg2 = v:fname_new
-  "if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  "let arg3 = v:fname_out
-  "if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  "let eq = ''
-  "if $VIMRUNTIME =~ ' '
-    "if &sh =~ '\<cmd'
-      "let cmd = '""' . $VIMRUNTIME . '\diff"'
-      "let eq = '"'
-    "else
-      "let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    "endif
-  "else
-    "let cmd = $VIMRUNTIME . '\diff'
-  "endif
-  "silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-"endfunction
-
 " }}}
 " "===================================================="
 " space & tab {{{
@@ -100,8 +72,15 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('/usr/share/vim/vim74/plugged')
 
 " Make sure you use single quotes
+
+" color scheme for vim
 Plug 'junegunn/seoul256.vim'
+
+" easy align
 Plug 'junegunn/vim-easy-align'
+
+" ALE for async linting
+Plug 'w0rp/ale'
 
 " Group dependencies, vim-snippets depends on ultisnips
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -127,7 +106,7 @@ Plug 'bling/vim-airline'
 Plug 'scrooloose/nerdcommenter'
 "Plug
 Plug 'morhetz/gruvbox'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 "Plug 'Valloric/YoucompleteMe'
 Plug 'Shougo/neocomplcache.vim'
 Plug 'Shougo/neosnippet'
@@ -136,7 +115,26 @@ Plug 'Latex-Box-Team/Latex-Box'
 Plug 'tpope/vim-surround'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'altercation/vim-colors-solarized'
+Plug 'vim-python/python-syntax'
 call plug#end()
+" }}}
+" "===================================================="
+" ALE Linter and Fixer {{{
+let g:ale_lint_on_enter=1
+let g:ale_lint_on_save=1
+let g:ale_lint_on_text_changed='never' 
+
+let g:ale_lint_on_insert_leave=1 " lint if leave insert mode(to normal mode)
+" Make using Ctrl+C do the same as Escape, to trigger autocmd commands
+inoremap <C-c> <Esc>
+" "===================================================="
+" begining \ is the way vimrc continuation!!!
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\}
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
 " }}}
 " "===================================================="
 " Editor {{{
@@ -207,26 +205,8 @@ let g:NERDDefaultAlign = 'left'
 
 " }}}
 " "===================================================="
-"syntastic {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-"let g:syntastic_tex_checkers=[]
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-
-let g:statline_syntastic = 0
-"set cygwin path
-"if has("win32")
-if has("win32unix")
-    "let g:cygwin_path = 'D:\cygwin64'
-    let g:sytastic_python_python = '/bin/python'
-endif
+"syntax {{{
+let g:python_highlight_all = 1
 " }}}
 " "===================================================="
 "neocomplache {{{
@@ -392,7 +372,7 @@ syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1
 hi cFunction gui=NONE guifg=#B5A1FF
 " }}}
 " "===================================================="
-" easy-aline {{{
+" easy-align {{{
 vmap <CR> <Plug>(EasyAlign)
 " }}}
 " "===================================================="
@@ -424,4 +404,5 @@ let g:ctrlp_custom_ignore = {
 "autocmd FileType csv 
 nmap <leader>acsv :set wrap! \| :%!column -t -s,<CR>
 nmap <leader>atsv :set wrap! \| :%!column -t<CR>
-"  vim: fdm=marker
+"vim: 
+set fdm=marker
