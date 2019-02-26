@@ -4,7 +4,7 @@
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
-set mouse=
+"set mouse=a
 
 " comment this, because this would not work in new version for vimdiff
 "set diffexpr=MyDiff()
@@ -204,6 +204,11 @@ nnoremap <F7> :tabn<CR>
 "command
 "command NT NERDTree
 nnoremap <c-n> :NERDTreeToggle<CR>
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDDefaultAlign = 'left'
+
 " }}}
 " "===================================================="
 "syntastic {{{
@@ -211,14 +216,15 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_tex_checkers=[]
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
+let g:statline_syntastic = 0
 "set cygwin path
 "if has("win32")
 if has("win32unix")
@@ -404,7 +410,7 @@ vmap <CR> <Plug>(EasyAlign)
 set expandtab
 autocmd Filetype python set expandtab 
 " quickly execute current python file
-autocmd FileType python nnoremap <F4> :execute "!ipython %" <enter>
+autocmd FileType python nnoremap <F4> :execute "w" <enter> :execute "!ipython %" <enter>
 " }}}
 " "===================================================="
 " ctrlp {{{
@@ -413,7 +419,6 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
@@ -421,21 +426,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 " }}}
 " "===================================================="
-" autocmd FileType csv {{{
-nmap <leader>aa :set wrap! \| :%!column -t -s,<CR>
-nmap <leader>at :set wrap! \| :%!column -t<CR>
-if exists("did_load_csvfiletype")
-    finish
-endif
-let did_load_csvfiletype=1
-
-augroup filetypedetect
-    au! BufRead,BufNewFile *.csv,*.dat  setfiletype csv
-augroup END
-"}}}
-" "===================================================="
-" nerdtree {{{
-"let g:NERDTreeDirArrowExpandable = '>'
-"let g:NERDTreeDirArrowCollapsible = '-'
-"}}}
+"autocmd FileType csv 
+nmap <leader>acsv :set wrap! \| :%!column -t -s,<CR>
+nmap <leader>atsv :set wrap! \| :%!column -t<CR>
 "  vim: fdm=marker
