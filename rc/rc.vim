@@ -21,22 +21,22 @@ set softtabstop=4
 " "===================================================="
 " language {{{
 
-if has("multi_byte") 
-    " UTF-8 ±àÂë 
-    set encoding=utf-8 
-    set termencoding=utf-8 
-    set formatoptions+=mM 
-    set fencs=utf-8,gbk 
-    if v:lang =~? '^/(zh/)/|/(ja/)/|/(ko/)' 
-        set ambiwidth=double 
-    endif 
-    if has("win32") 
-        source $VIMRUNTIME/delmenu.vim 
-        source $VIMRUNTIME/menu.vim 
-        language messages zh_CN.utf-8 
-    endif 
-else 
-    echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte" 
+if has("multi_byte")
+    " UTF-8 ±àÂë
+    set encoding=utf-8
+    set termencoding=utf-8
+    set formatoptions+=mM
+    set fencs=utf-8,gbk
+    if v:lang =~? '^/(zh/)/|/(ja/)/|/(ko/)'
+        set ambiwidth=double
+    endif
+    if has("win32")
+        source $VIMRUNTIME/delmenu.vim
+        source $VIMRUNTIME/menu.vim
+        language messages zh_CN.utf-8
+    endif
+else
+    echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
 endif
 " }}}
 " "===================================================="
@@ -58,7 +58,7 @@ elseif has("unix")
             let &t_SR = "\<Esc>]50;CursorShape=2\x7"
             let &t_EI = "\<Esc>]50;CursorShape=0\x7"
         endif
-    endif 
+    endif
 endif
 
 "}}}
@@ -122,7 +122,7 @@ call plug#end()
 " ALE Linter and Fixer {{{
 let g:ale_lint_on_enter=1
 let g:ale_lint_on_save=1
-let g:ale_lint_on_text_changed='never' 
+let g:ale_lint_on_text_changed='never'
 
 let g:ale_lint_on_insert_leave=1 " lint if leave insert mode(to normal mode)
 " Make using Ctrl+C do the same as Escape, to trigger autocmd commands
@@ -132,6 +132,7 @@ inoremap <C-c> <Esc>
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
+\   'python': ['isort', 'trim_whitespace']
 \}
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
@@ -139,7 +140,7 @@ let g:ale_fix_on_save = 1
 " "===================================================="
 " Editor {{{
 
-" line number 
+" line number
 set number
 set numberwidth=3
 " syntax
@@ -151,7 +152,7 @@ set rulerformat=%=%h%m%r%w\ %(%c%V%),%l/%L\ %P
 " current mode in status line
 set showmode
 " display the number of (characters|lines) in visual mode, also cur command
-set showcmd  
+set showcmd
 " always show tab line
 set showtabline=2
 " cursorline
@@ -164,7 +165,7 @@ set laststatus=2
 " "===================================================="
 " color {{{
 "let g:gruvbox_contrast_dark='soft'
-" Enable italic 
+" Enable italic
 let g:gruvbox_italic=1
 
 if has("win32")
@@ -179,7 +180,7 @@ else
 	    " add them to italic line to get gnome-terminal italic support
 	    " if not, the italic lines will be very strange background color
 	    " the character  should be added by typing ctrl+v+esc (disable win mode
-	    " to avoid ctrl+v paste) 
+	    " to avoid ctrl+v paste)
 	    set t_ZH=[3m
 	    "set t_ZH="\e[[3m"
 	    "set t_ZR="\e[[23m"
@@ -189,7 +190,7 @@ else
     endif
 endif
 set background=dark
-colorscheme solarized 
+colorscheme solarized
 " }}}
 " "===================================================="
 " general key mapping  and shor command{{{
@@ -219,7 +220,7 @@ let g:neocomplcache_enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 2
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
- 
+
 "let g:neocomplcache_enable_auto_select = 1
 
 " Enable heavy features.
@@ -328,32 +329,32 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 " "===================================================="
 " latex (including Latex-box) {{{
 set shellslash
-set grepprg=grep\ -nH\ $* 
+set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 
 if has("win32")
-    function! s:AltEscape( ) 
+    function! s:AltEscape( )
 	let c='a'
 	while c <= 'z'
 	    exec "set <A-".c.">=\e".c
 	    exec "imap \e".c." <A-".c.">"
 	    let c = nr2char(1+char2nr(c))
 	endw
-	set timeout ttimeoutlen=50    
+	set timeout ttimeoutlen=50
     endfunction
 endif
 
 autocmd Filetype tex set spell |  nnoremap j gj| nnoremap k gk| set colorcolumn=79
 autocmd Filetype tex source ~/.vim/rc/myauctex.vim
 autocmd Filetype py set colorcolumn=79
-"latex box 
+"latex box
 
 let g:LatexBox_viewer = "SumatraPDF -reuse-instance"
 "let g:LatexBox_options = pdf
 let g:LatexBox_quickfix = 2
 "let g:LatexBox_latexmk_async = 1
 let g:LatexBox_latexmk_preview_continuously = 1
-let g:LatexBox_latexmk_options = "-view=none" 
+let g:LatexBox_latexmk_options = "-view=none"
 let g:LatexBox_build_dir = "."
 let g:LatexBox_Folding = 0
 "try to speed up latex
@@ -367,8 +368,8 @@ set autochdir
 " }}}
 " "===================================================="
 "some setting about c/c++ {{{
-syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>[^()]*)("me=e-2 
-syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1 
+syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>[^()]*)("me=e-2
+syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1
 hi cFunction gui=NONE guifg=#B5A1FF
 " }}}
 " "===================================================="
@@ -383,7 +384,7 @@ vmap <CR> <Plug>(EasyAlign)
 " "===================================================="
 " python setting {{{
 set expandtab
-autocmd Filetype python set expandtab 
+autocmd Filetype python set expandtab
 " quickly execute current python file
 autocmd FileType python nnoremap <F4> :execute "w" <enter> :execute "!ipython %" <enter>
 " }}}
@@ -401,8 +402,8 @@ let g:ctrlp_custom_ignore = {
   \ }
 " }}}
 " "===================================================="
-"autocmd FileType csv 
+"autocmd FileType csv
 nmap <leader>acsv :set wrap! \| :%!column -t -s,<CR>
 nmap <leader>atsv :set wrap! \| :%!column -t<CR>
-"vim: 
+"vim:
 set fdm=marker
