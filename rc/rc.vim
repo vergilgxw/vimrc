@@ -1,6 +1,5 @@
 " vimrc by Guo Xiawei
 "
-
 "basic setting {{{
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
@@ -86,7 +85,8 @@ Plug 'w0rp/ale'
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " On-demand loading
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 "Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Using git URL
@@ -104,7 +104,6 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'kien/ctrlp.vim'
 Plug 'bling/vim-airline'
 Plug 'scrooloose/nerdcommenter'
-"Plug
 Plug 'morhetz/gruvbox'
 " Plug 'scrooloose/syntastic'
 "Plug 'Valloric/YoucompleteMe'
@@ -115,6 +114,7 @@ Plug 'Latex-Box-Team/Latex-Box'
 Plug 'tpope/vim-surround'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'altercation/vim-colors-solarized'
+Plug 'chrisbra/csv.vim'
 Plug 'vim-python/python-syntax'
 call plug#end()
 " }}}
@@ -165,30 +165,6 @@ set laststatus=2
 " "===================================================="
 " color {{{
 "let g:gruvbox_contrast_dark='soft'
-" Enable italic
-let g:gruvbox_italic=1
-
-if has("win32")
-    let g:rehash256=1
-else
-    if has("unix")
-	" following is for gnome terminal
-	if $COLORTERM == 'gnome-terminal'
-	    " set 256 color mode (or the colors crash)
-	    set t_Co=256
-	    let g:rehash256=1
-	    " add them to italic line to get gnome-terminal italic support
-	    " if not, the italic lines will be very strange background color
-	    " the character  should be added by typing ctrl+v+esc (disable win mode
-	    " to avoid ctrl+v paste)
-	    set t_ZH=[3m
-	    "set t_ZH="\e[[3m"
-	    "set t_ZR="\e[[23m"
-	    set t_ZR=[23m
-	    "highlight Comment cterm=italic
-	endif
-    endif
-endif
 set background=dark
 colorscheme solarized
 " }}}
@@ -346,8 +322,8 @@ endif
 
 autocmd Filetype tex set spell |  nnoremap j gj| nnoremap k gk| set colorcolumn=79
 autocmd Filetype tex source ~/.vim/rc/myauctex.vim
-autocmd Filetype py set colorcolumn=79
-"latex box
+autocmd Filetype python setlocal colorcolumn=79
+"latex box 
 
 let g:LatexBox_viewer = "SumatraPDF -reuse-instance"
 "let g:LatexBox_options = pdf
@@ -405,5 +381,5 @@ let g:ctrlp_custom_ignore = {
 "autocmd FileType csv
 nmap <leader>acsv :set wrap! \| :%!column -t -s,<CR>
 nmap <leader>atsv :set wrap! \| :%!column -t<CR>
-"vim:
-set fdm=marker
+"vim: 
+set fdm=marker"}}}

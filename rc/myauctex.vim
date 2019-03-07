@@ -331,7 +331,7 @@ function! s:TexQuotes()
     endif
     return insert
 endfunction
-inoremap <buffer> " <C-R>=<SID>TexQuotes()<CR>
+"inoremap <buffer> " <C-R>=<SID>TexQuotes()<CR>
 
 " }}}
 " "====================================================================="
